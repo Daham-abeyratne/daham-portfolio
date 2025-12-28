@@ -86,7 +86,7 @@ const Portfolio = () => {
 
       if(!res.ok) throw new Error("Failed");
 
-      alert("Message sent successfully!");
+      alert("NEW HANDLER WORKING !");
       setFormData({name: "", email:"", message:""});
     }catch(err){
       alert("Something went wrong. Please try again.")
