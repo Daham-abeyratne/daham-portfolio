@@ -150,7 +150,7 @@ const Portfolio = () => {
                     View Projects
                   </button>
                   <button
-                    onClick={() => router.push("/#contact")}
+                    onClick={() => router.push(`/?scroll=contact`)}
                     className={`${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-800 hover:bg-gray-700'} text-white px-8 py-4 rounded-lg font-semibold max-[1030px]:w-[80%] text-lg transition-all duration-300 transform hover:scale-105 shadow-lg z-1000`}
                   >
                     Contact Me
