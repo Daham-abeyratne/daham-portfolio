@@ -142,12 +142,12 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
       role="alert"
       aria-live="polite"
     >
-      <div className="flex items-start gap-4 p-5">
-        <div className={`flex-shrink-0 ${colors.icon} mt-0.5`}>
+      <div className="flex items-start gap-0 p-2 h-[50px]">
+        <div className={`flex-shrink-0 ${colors.icon} mt-0`}>
           {getIcon()}
         </div>
-        <div className="flex-1 min-w-0">
-          <h4 className={`font-bold text-lg mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <div className="flex-1 min-w-0 mt-0">
+          <h4 className={`font-bold text-m mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             {notification.title}
           </h4>
           <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
@@ -168,9 +168,9 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
           <X className="w-5 h-5" />
         </button>
       </div>
-      <div className="h-1 bg-gray-200 dark:bg-gray-700 overflow-hidden">
+      <div className="h-[0.5] bg-gray-200 dark:bg-gray-700 overflow-hidden">
         <div
-          className={`h-full ${colors.progress} transition-all duration-100 ease-linear`}
+          className={`h-[100%] ${colors.progress} transition-all duration-100 ease-linear`}
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -190,7 +190,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     type: NotificationType,
     title: string,
     message: string,
-    duration: number = 5000
+    duration: number = 1000
   ) => {
     const id = Date.now().toString() + Math.random().toString(36);
     const newNotification: Notification = { id, type, title, message, duration };
@@ -204,12 +204,12 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   return (
     <NotificationContext.Provider value={{ showNotification }}>
       {children}
-      <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-3 pointer-events-none max-w-md w-full px-4">
+      <div className="fixed top-5 left-4 z-[9999] flex flex-col gap-3 pointer-events-none max-w-md w-full px-4">
         <style jsx global>{`
-          @keyframes slideInRight {
+          @keyframes slideInLeft {
             from {
               opacity: 0;
-              transform: translateX(100%) scale(0.95);
+              transform: translateX(-100%) scale(0.55);
             }
             to {
               opacity: 1;
@@ -217,24 +217,24 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
             }
           }
 
-          @keyframes slideOutRight {
+          @keyframes slideOutLeft {
             from {
               opacity: 1;
               transform: translateX(0) scale(1);
             }
             to {
               opacity: 0;
-              transform: translateX(100%) scale(0.95);
+              transform: translateX(-100%) scale(0.55);
             }
           }
 
           .notification-enter {
             pointer-events: auto;
-            animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideInLeft 0.4s cubic-bezier(0.16, -10, 0, 1);
           }
 
           .notification-exit {
-            animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 1, 1);
+            animation: slideOutLeft 0.3s cubic-bezier(0.4, 0, 1, 1);
           }
         `}</style>
         {notifications.map((notification) => (
