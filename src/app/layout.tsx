@@ -5,6 +5,7 @@ import { ThemeProvider } from "../../context/ThemeContext";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { Playfair_Display } from 'next/font/google';
+import NotificationWrapper from '../../components/Notificationwrapper';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
     <html lang="en" >
       <body suppressHydrationWarning>
         <ThemeProvider>
-          <Navbar/>
-          {children}
-          <Footer />
+          <NotificationWrapper>
+            <Navbar/>
+            {children}
+            <Footer />
+          </NotificationWrapper>
         </ThemeProvider>
       </body>
     </html>

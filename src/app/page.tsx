@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import DarkVeil from '@/components/DarkVeil';
 import { Suspense } from "react";
 import SearchScrollHandler from '../../components/SearchScrollHandler';
+import { useNotification } from '../../components/Notificationsystem';
 
 
 const playfair = Playfair_Display({
@@ -30,6 +31,7 @@ const Portfolio = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [showNavbar, setShowNavbar] = useState(false);
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const {showNotification} = useNotification();
 
   const router = useRouter();
   const { toggleDarkMode } = useTheme();
@@ -86,10 +88,21 @@ const Portfolio = () => {
 
       if(!res.ok) throw new Error("Failed");
 
-      alert("NEW HANDLER WORKING !");
+      showNotification(
+        'success',
+        'Message Sent!',
+        'Thank you for reaching out. I\'ll get back to you soon.',
+        5000
+      );
+      
       setFormData({name: "", email:"", message:""});
     }catch(err){
-      alert("Something went wrong. Please try again.")
+      showNotification(
+        'error',
+        'Failed to Send',
+        'Something went wrong. Please try again or contact me directly.',
+        6000
+      );
     }
   };
 
