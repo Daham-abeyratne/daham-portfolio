@@ -74,10 +74,23 @@ const Portfolio = () => {
     'Python', 'SQL', 'React', 'Next.js','Pandas', 'NumPy','HTML','SymPy','Java','JavaScript'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    alert('Message sent! (Demo only)');
-    setFormData({ name: '', email: '', message: '' });
+
+    try{
+      const res = await fetch("/api/contact",{
+        method: "POST",
+        headers:{"Content-Type": "application/json"},
+        body: JSON.stringify(formData),
+      });
+
+      if(!res.ok) throw new Error("Failed");
+
+      alert("Message sent successfully!");
+      setFormData({name: "", email:"", message:""});
+    }catch(err){
+      alert("Something went wrong. Please try again.")
+    }
   };
 
   const theme = darkMode
@@ -100,21 +113,6 @@ const Portfolio = () => {
       <Suspense fallback={null}>
         <SearchScrollHandler />
       </Suspense>
-      {/* <nav id='navbar'>
-          <div className={`absolute text-2xl font-bold left-15 pt-10 ${accentColor} text-[30px]`}>Portfolio</div>
-          <button 
-                onClick={() => scrollToSection("about")}
-                className={`absolute right-45 top-10 hover:text-gray-600 transition ${darkMode  ? 'text-white' : 'text-black' } text-[20px]`}
-              >
-                About
-          </button>
-          <button
-                onClick={toggleDarkMode}
-                className={`p-2 rounded-lg absolute right-20 top-9.5 hover:text-gray-600 transition`}
-              >
-                {darkMode ? <Sun size={25} /> : <Moon size={25} />}
-          </button>
-      </nav> */}
       <div>
           <>
             <section
