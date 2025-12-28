@@ -142,7 +142,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
       role="alert"
       aria-live="polite"
     >
-      <div className="flex items-start gap-0 p-2 h-[50px]">
+      <div className="flex items-start gap-1.5 p-2 pb-5 h-[80px]">
         <div className={`flex-shrink-0 ${colors.icon} mt-0`}>
           {getIcon()}
         </div>
@@ -204,7 +204,7 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
   return (
     <NotificationContext.Provider value={{ showNotification }}>
       {children}
-      <div className="fixed top-5 left-4 z-[9999] flex flex-col gap-3 pointer-events-none max-w-md w-full px-4">
+      <div className="fixed top-5 left-0 z-[9999] flex flex-col gap-3 pointer-events-none max-w-md w-full px-4">
         <style jsx global>{`
           @keyframes slideInLeft {
             from {
