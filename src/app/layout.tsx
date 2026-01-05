@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { Playfair_Display } from 'next/font/google';
 import NotificationWrapper from '../../components/Notificationwrapper';
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
           <NotificationWrapper>
             <Navbar/>
             {children}
+            <Analytics/>
             <Footer />
           </NotificationWrapper>
         </ThemeProvider>
