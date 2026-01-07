@@ -32,6 +32,7 @@ const Portfolio = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
   const {showNotification} = useNotification();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
   const { toggleDarkMode } = useTheme();
@@ -79,6 +80,9 @@ const Portfolio = () => {
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     try{
       const res = await fetch("/api/contact",{
         method: "POST",
@@ -103,6 +107,8 @@ const Portfolio = () => {
         'Something went wrong. Please try again or contact me directly.',
         6000
       );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -269,10 +275,15 @@ const Portfolio = () => {
                         className={`w-full px-4 py-3 rounded-lg ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-900'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
                       />
                       <button
-                        type="submit"
-                        className={`w-full ${buttonBg} text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105`}
+                        type="submit" disabled={isSubmitting} className={`w-full ${buttonBg} text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105`}
                       >
-                        Send Message
+                        {isSubmitting?  (
+                          <span className="flex items-center justify-center gap-2">
+                            <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          </span>
+                        ) : (
+                          "Send Message"
+                        )}
                       </button>
                     </form>
                   </div>
